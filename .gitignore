@@ -13,3 +13,6 @@ cdk.out
 # MAC
 .DS_Store
 
+# Asset
+layer.zip
+
