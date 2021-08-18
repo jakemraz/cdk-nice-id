@@ -1,8 +1,8 @@
 {
-  "name": "cdk-backend-serverless-deployer",
+  "name": "cdk-nice-id",
   "version": "0.1.0",
   "bin": {
-    "cdk-backend-serverless-deployer": "bin/cdk-backend-serverless-deployer.js"
+    "cdk-nice-id": "bin/cdk-nice-id.js"
   },
   "scripts": {
     "build": "tsc",
@@ -13,9 +13,9 @@
   "devDependencies": {
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
+    "aws-cdk": "^2.0.0-rc.18",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
-    "aws-cdk": "2.0.0-rc.16",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
