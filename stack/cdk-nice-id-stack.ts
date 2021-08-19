@@ -23,6 +23,9 @@ export class CdkNiceIdStack extends Stack {
     const api = new apigw.LambdaRestApi(this, 'NiceIdRestAPI', {
       handler: handler,
       proxy: true,
+      deployOptions: {
+        stageName: AppContext.getInstance().env,
+      },
     });
 
     const param = new ssm.StringParameter(this, 'RestApiEndpoint', {
