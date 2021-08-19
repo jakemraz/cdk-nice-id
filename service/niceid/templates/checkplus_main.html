@@ -21,11 +21,20 @@
             document.form_chk.target = "popupChk";
             document.form_chk.submit();
         }
+
+        function fnSelf(){
+            window.open('', '_self', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+            document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+            document.form_chk.target = "_self";
+            document.form_chk.submit();
+        }
 	</script>
 </head>
-<body>
+<body onload="fnSelf()">
+    <!--
     {{ returnMsg }}<br><br>
     업체정보 암호화 데이타 : [{{ enc_data }}]<br><br>
+    -->
 
     <!-- 안심본인인증 서비스 팝업 호출 form -->
     <form name="form_chk" method="post">
@@ -34,7 +43,7 @@
         <!-- 업체정보 암호화 데이터 -->
         <input type="hidden" name="EncodeData" value="{{ enc_data }}">
         <!-- 팝업 호출 링크 -->	
-        <a href="javascript:fnPopup();"> CheckPlus 안심본인인증 Click</a>
+        <!-- <a href="javascript:fnPopup();"> CheckPlus 안심본인인증 Click</a> -->
     </form>
 </body>
 </html>
