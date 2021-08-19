@@ -13,9 +13,10 @@ app = Flask(__name__)
 #   서비스명 : 체크플러스 - 안심본인인증 서비스
 ####################################################################################
 region_name = "ap-northeast-2"
+deployment_env = os.environ.get('DEPLOYMENT_ENV', None)
+port = 3000
 
 def get_secret(secret_name):
-
   # Create a Secrets Manager client
   session = boto3.session.Session()
   client = session.client(
@@ -55,12 +56,16 @@ def get_secret(secret_name):
       secret = get_secret_value_response['SecretString']
     else:
       decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
-  
+
   return json.loads(secret)
 
 # API GATEWAY ENDPOINT
 sess = boto3.session.Session()
-endpoint_url = sess.client(service_name='ssm', region_name=region_name).get_parameter(Name='NiceIdRestApiEndpoint').get('Parameter',{}).get('Value',{})
+endpoint_url = ''
+try:
+  endpoint_url = sess.client(service_name='ssm', region_name=region_name).get_parameter(Name=f'/{deployment_env}/NiceIdRestApiEndpoint').get('Parameter',{}).get('Value',{})
+except:
+  endpoint_url = f'http://localhost:{port}/'
 
 # 세션이용을 위한 비밀키 설정
 app.secret_key = os.urandom(24)
@@ -72,7 +77,6 @@ cb_encode_path = '/opt/CPClient/CPClient_64bit' if os.path.isfile('/opt/CPClient
 site_secret = get_secret('niceid')
 sitecode = site_secret.get('sitecode')
 sitepasswd = site_secret.get('sitepasswd')
-port = 3000
 
 #####################################################################################
 #    페이지명 : 체크플러스 - 메인 호출 페이지

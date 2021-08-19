@@ -18,7 +18,10 @@ export class CdkNiceIdStack extends Stack {
     const dockerfile = path.join(__dirname, "../service/niceid");
     const handler = new lambda.DockerImageFunction(this, 'NiceIdFunction', {
       code: lambda.DockerImageCode.fromImageAsset(dockerfile),
-    })
+      environment: {
+        DEPLOYMENT_ENV: AppContext.getInstance().env,
+      },
+    });
 
     const api = new apigw.LambdaRestApi(this, 'NiceIdRestAPI', {
       handler: handler,
@@ -29,7 +32,7 @@ export class CdkNiceIdStack extends Stack {
     });
 
     const param = new ssm.StringParameter(this, 'RestApiEndpoint', {
-      parameterName: 'NiceIdRestApiEndpoint',
+      parameterName: `/${AppContext.getInstance().env}/NiceIdRestApiEndpoint`,
       stringValue: api.url,
     });
 
