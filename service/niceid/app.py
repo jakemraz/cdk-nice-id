@@ -12,7 +12,7 @@ app = Flask(__name__)
 #   NICE평가정보 Copyright(c) KOREA INFOMATION SERVICE INC. ALL RIGHTS RESERVED
 #   서비스명 : 체크플러스 - 안심본인인증 서비스
 ####################################################################################
-region_name = "ap-northeast-2"
+region_name = os.environ.get('DEPLOYMENT_REGION', "ap-northeast-2")
 deployment_env = os.environ.get('DEPLOYMENT_ENV', None)
 port = 3000
 

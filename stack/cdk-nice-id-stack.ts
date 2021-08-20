@@ -20,6 +20,7 @@ export class CdkNiceIdStack extends Stack {
       code: lambda.DockerImageCode.fromImageAsset(dockerfile),
       environment: {
         DEPLOYMENT_ENV: AppContext.getInstance().env,
+        DEPLOYMENT_REGION: this.region,
       },
     });
 
